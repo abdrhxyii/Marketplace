@@ -4,8 +4,7 @@ import iphone from '../../assets/Images/iphone.jpg'
 
 
 const Product = () => {
-
-    const title = "50L Traveling Backpack Bag with Steel Plate Frame - Free Waterproof Raincover - Larger than 40L 45L Backpacks - Traveling Bag Men and Women"
+    const title = "50L Travelihng Backpack Bag with Steel Plate Frame - Free Waterproof Raincover - Larger than 40L 45L Backpacks - Traveling Bag Men and Women"
     const [word, setWord] = useState(title)
 
     useEffect(() => {
