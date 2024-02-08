@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import './Product.css'
 import iphone from '../../assets/Images/iphone.jpg'
-
 
 const Product = () => {
     const title = "50L Travelihng Backpack Bag with Steel Plate Frame - Free Waterproof Raincover - Larger than 40L 45L Backpacks - Traveling Bag Men and Women"
@@ -14,6 +13,7 @@ const Product = () => {
     }, [title])
 
   return (
+    <div>
     <div className="product-container">
       <div className="product-wrapper">
         <img src={iphone} className="product-image" alt="Product" />
@@ -25,6 +25,7 @@ const Product = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }

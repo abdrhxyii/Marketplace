@@ -1,11 +1,12 @@
-import Product from '../ProductCard/Product'
+import './Home.css'
+import Products from '../Products/Products'
 
 const Home = () => {
+
+
   return (
-    <div>
-      <div>
-        <Product/>
-      </div>
+    <div className='home-container'>
+      <Products/>
     </div>
   )
 }
