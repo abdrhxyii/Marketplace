@@ -1,0 +1,8 @@
+node_modules/
+
+Config/
+
+*.log
+
+# Ignore files related to API keys
+.env
