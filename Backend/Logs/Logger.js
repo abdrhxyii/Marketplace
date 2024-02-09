@@ -11,5 +11,3 @@ const Logger = createLogger({
 })
 
 module.exports = Logger
-
-

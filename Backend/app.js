@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const firebase = require('firebase');
+const firebase = require('firebase/app');
 const Logger = require('./Logs/Logger');
 const sequelizeConfigs = require('./Config/DatabaseConfig');
 
@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Firebase initialization
 const firebaseConfig = require('./Config/FirebaseConfig');
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig)
 
 // Database synchronization
 sequelizeConfigs.sync()
