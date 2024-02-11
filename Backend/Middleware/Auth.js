@@ -8,6 +8,7 @@ const isAuthenticate = async (request, response, next) => {
     if (!idToken) {
       return response.status(401).json({ message: 'Unauthorized' });
     }
+
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     request.userId = decodedToken.userId; 
     next(); 
