@@ -8,6 +8,7 @@ exports.verifyToken = (request, response, next) => {
         } else {
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
             request.userId = decoded.userId;
+            next(); 
             return response.status(200).json({ message: "Token verified successfully", decoded });
         }
     } catch(error){
