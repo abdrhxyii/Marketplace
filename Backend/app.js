@@ -4,6 +4,7 @@ const cors = require('cors');
 const firebase = require('firebase/app');
 const Logger = require('./Logs/Logger');
 const sequelizeConfigs = require('./Config/DatabaseConfig');
+const AuthenticationRouter = require('./Routers/Auth')
 
 const PORT = process.env.PORT || 4001;
 const app = express();
@@ -15,6 +16,9 @@ app.use(express.json());
 // Firebase initialization
 const firebaseConfig = require('./Config/FirebaseConfig');
 firebase.initializeApp(firebaseConfig)
+
+// Routes
+app.use('/auth', AuthenticationRouter)
 
 // Database synchronization
 sequelizeConfigs.sync()

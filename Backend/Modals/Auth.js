@@ -3,8 +3,7 @@ const SequlizeConfig = require('../Config/DatabaseConfig')
 
 const User = SequlizeConfig.define("User", {
     uid: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
     },
@@ -22,12 +21,16 @@ const User = SequlizeConfig.define("User", {
     },
     first_name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     last_name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
     },
+    isEmailVerified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    }
 })
 
 module.exports = User;
