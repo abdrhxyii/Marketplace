@@ -13,3 +13,6 @@ Store.hasMany(Product, {
 Product.belongTo(Store, {
     foreignKey: 'product_Id'
 })
+
+
+
