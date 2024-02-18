@@ -74,11 +74,15 @@ exports.LoginUser = async (request, response) => {
 exports.getUserProfile = async (request, response) => {
     const id = request.params.id
     try{
-        const LoggedInUserDetail = await findAll({where: {id: id}});
-        console.log(LoggedInUserDetail)
+        const UserDetail = await AuthModal.findAll({where: {id: id}});
+        if (UserDetail){
+            response.status(200).json({message: UserDetail})
+        } else {
+            response.status(401).json({message: "No user found"})
+        }
         
     } catch (error) {
         console.log(error)
-        response.status(400).json({message: "An Error occurred while retrievin the user profile"})
+        response.status(400).json({message: "An Error occurred while retrieving the user profile"})
     }
 }

@@ -21,10 +21,12 @@ const Product = SequlizeConfig.define('Product', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    // no. of days takes to delivery the product or come and take option
     product_Delivery_Detail: {
         type: Sequelize.STRING,
         allowNull: false
     },
+    // Free or Include Cost
     shipping_details: {
         type: Sequelize.STRING,
         allowNull: false
