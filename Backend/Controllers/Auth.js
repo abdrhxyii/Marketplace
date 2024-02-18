@@ -8,7 +8,7 @@ exports.RegisterUser = async (request, response) => {
     try {
         const newUserinFirebase = await admin.auth().createUser({
             email: email, 
-            password: password
+            password: password 
         });
 
         const hashedPassword = bcrypt.hashSync(password, 10);
@@ -40,10 +40,17 @@ exports.LoginUser = async (request, response) => {
             return response.status(401).json({ message: "Email address doesn't exist" });
         }
 
-        const validPassword = await bcrypt.compareSync(password, userRecord.password);
+        const userFromDatabase = await AuthModal.findOne({ where: { uid: userRecord.uid } });
+
+        if (userRecord.emailVerified) {
+            userFromDatabase.isEmailVerified = true;
+            await userFromDatabase.save();
+        }
+
+        const validPassword = await bcrypt.compareSync(password, userFromDatabase.password);
 
         if (!validPassword) {
-            return response.status(401).json({ message: "Incorrect password" });
+            return response.status(402).json({ message: "Incorrect password" });
         }
 
         if (!userRecord.emailVerified) {
@@ -51,9 +58,11 @@ exports.LoginUser = async (request, response) => {
         }
 
         const token = await admin.auth().createCustomToken(userRecord.uid);
+
         response.status(200).json({
             message: "Login successful",
-            token: token
+            token: token,
+            EmailVerificationStatus: userRecord.emailVerified
         });
 
     } catch (error) {
@@ -62,3 +71,14 @@ exports.LoginUser = async (request, response) => {
     }
 };
 
+exports.getUserProfile = async (request, response) => {
+    const id = request.params.id
+    try{
+        const LoggedInUserDetail = await findAll({where: {id: id}});
+        console.log(LoggedInUserDetail)
+        
+    } catch (error) {
+        console.log(error)
+        response.status(400).json({message: "An Error occurred while retrievin the user profile"})
+    }
+}
