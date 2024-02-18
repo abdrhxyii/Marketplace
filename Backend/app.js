@@ -17,7 +17,7 @@ app.use(express.json());
 const firebaseConfig = require('./Config/FirebaseConfig');
 firebase.initializeApp(firebaseConfig)
 
-// Routes
+// Root Routes
 app.use('/auth', AuthenticationRouter)
 
 // Database synchronization
