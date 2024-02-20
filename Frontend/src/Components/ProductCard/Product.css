@@ -7,7 +7,6 @@
 
 .product-container {
     width: 210px;
-    cursor: pointer;
   }
   
   .product-wrapper {
@@ -24,6 +23,7 @@
     height: 203px;
     object-fit: cover;
     border-radius: 16px;
+    cursor: pointer;
   }
   
   .product-info {
