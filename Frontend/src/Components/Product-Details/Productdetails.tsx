@@ -1,3 +1,5 @@
+import iphone from '../../assets/Images/sampleimg.jpg'
+import './Productdetails.css'
 
 const Productdetails = () => {
   const title = "50L Travelihng Backpack Bag with Steel Plate Frame - Free Waterproof Raincover - Larger than 40L 45L Backpacks - Traveling Bag Men and Women"
@@ -6,7 +8,7 @@ const Productdetails = () => {
     <div>
       <div className="products-details">
         <div className="products-img">
-          <img src="" alt="" />
+          <img className='img' src={iphone} alt="" />
         </div>
 
         <div className="products-pricings">
@@ -28,8 +30,6 @@ const Productdetails = () => {
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   )

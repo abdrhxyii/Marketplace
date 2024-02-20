@@ -1,0 +1,10 @@
+.products-details{
+    display: flex;
+    flex-direction: row;
+}
+
+.img {
+    height: 420px;
+    width: 400px;
+    border-radius: 10px;
+}
