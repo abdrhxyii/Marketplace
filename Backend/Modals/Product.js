@@ -3,7 +3,7 @@ const SequlizeConfig = require('../Config/DatabaseConfig')
 
 const Product = SequlizeConfig.define('Product', {
     product_Id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true

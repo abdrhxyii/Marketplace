@@ -5,6 +5,7 @@ const firebase = require('firebase/app');
 const Logger = require('./Logs/Logger');
 const sequelizeConfigs = require('./Config/DatabaseConfig');
 const AuthenticationRouter = require('./Routers/Auth')
+const StoreRouter = require('./Routers/Store')
 
 const PORT = process.env.PORT || 4001;
 const app = express();
@@ -19,6 +20,7 @@ firebase.initializeApp(firebaseConfig)
 
 // Root Routes
 app.use('/auth', AuthenticationRouter)
+app.use('/stores', StoreRouter)
 
 // Database synchronization
 sequelizeConfigs.sync()
