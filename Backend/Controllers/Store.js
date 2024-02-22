@@ -25,7 +25,7 @@ exports.CreateStore = async (request, response) => {
             response.status(403).json({ message: "Unauthorized. You can only create stores for your own user." });
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         response.status(400).json({ message: "Error occurred while creating the store", Error: error });
     }
 };
