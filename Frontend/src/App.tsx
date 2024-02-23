@@ -2,7 +2,8 @@ import Home from './Components/Home/Home';
 import {Routes, Route} from 'react-router-dom';
 import Productdetails from './Components/Product-Details/Productdetails';
 import Navbar from './Components/Navbar/Navbar';
-import Auth from './Components/Auth/Auth'
+import Signup from './Components/Auth/Signup';
+import Login from './Components/Auth/Login';
 import './App.css'
 import './index.css'
 
@@ -11,10 +12,12 @@ function App() {
   return (
     <>
     <Navbar/>
+    
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/product' element={<Productdetails/>}/>
-      <Route path='/authentication' element={<Auth/>}/>
+      <Route path='/auth/login' element={<Login/>}/>
+      <Route path='/auth/register' element={<Signup/>}/>
     </Routes>
     </>
   )

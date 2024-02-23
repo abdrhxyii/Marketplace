@@ -1,26 +1,11 @@
-import { useLocation, useNavigate } from "react-router"
-import { useEffect } from "react"
+import { useNavigate } from "react-router";
 
-const Auth = () => {
-  const activatedRoute = useLocation()
-
-
-  // const route = useNavigate()
-
-  console.log(activatedRoute.state.type)
-  const isLogin: boolean = false;
-  
-
-  // useEffect(() => {
-  //   if (activatedRoute){
-  //     console.log(activatedRoute, "activatedRoute")
-  //   }
-  // })
-
+const Login = () => {
+  const route = useNavigate()
 
   return (
     <div>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
@@ -40,7 +25,7 @@ const Auth = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-3"
                 />
               </div>
             </div>
@@ -63,7 +48,7 @@ const Auth = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-3"
                 />
               </div>
             </div>
@@ -79,15 +64,15 @@ const Auth = () => {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Start a 14 day free trial
+            Dont have an account?{' '}
+            <a onClick={() => {route('/auth/register')}} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
+              Create an account
             </a>
           </p>
         </div>
       </div>
     </div>
-    )
+  )
 }
 
-export default Auth
+export default Login
