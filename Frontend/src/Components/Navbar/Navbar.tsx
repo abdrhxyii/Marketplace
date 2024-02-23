@@ -7,9 +7,9 @@ const Navbar = () => {
 
   const Registration = (action: string) => {
     if (action === 'login'){
-      route("/authentication?", {state: {type: action}})
-    } else{
-      route('/registration', {state: {type: action}})
+      route('/auth/login')
+    } else {
+      route('/auth/register')
     }
   }
 
