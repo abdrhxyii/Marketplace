@@ -1,5 +1,6 @@
 import './Home.css'
 import Products from '../Products/Products'
+import Banner from '../Navbar/Banner/Banner'
 
 const Home = () => {
 

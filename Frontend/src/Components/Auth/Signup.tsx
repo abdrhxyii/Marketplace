@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
+import apiService from "../../Services/apiService";
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 const Signup = () => {
   const route = useNavigate();
@@ -18,8 +20,28 @@ const Signup = () => {
     });
   }
 
+  const registerUser = async (e: React.FormEvent) => {
+    e.preventDefault()
+    let inputData = {
+      email: input.email,
+      password: input.password
+    }
+    apiService.post('auth/register', inputData)
+    .then((data: any) => {
+      console.log(data)
+      toast.success(`${data.data.message}, Please login to continue`)
+      // if (data.status === 200) {
+      //   route('/auth/login')
+      // }
+    })
+    .catch(error => {
+      toast.error(error.response.data.error)
+    })
+  }
+
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -28,7 +50,7 @@ const Signup = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={registerUser}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -74,7 +96,7 @@ const Signup = () => {
 
             <div>
               <button
-                type="submit"
+              type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up
@@ -84,7 +106,7 @@ const Signup = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account?{' '}
-            <a onClick={() => {route('/auth/login')}} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
+            <a onClick={() => route('/auth/login')} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
               Sign in to your account
             </a>
           </p>
