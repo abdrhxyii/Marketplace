@@ -1,5 +1,6 @@
 import './Navbar.css'
 import { useNavigate } from 'react-router'
+import Banner from './Banner/Banner'
 
 const Navbar = () => {
   const route = useNavigate()
@@ -15,6 +16,7 @@ const Navbar = () => {
 
   return (
    <div>
+    <Banner/>
     <div className="nav-bg">
       <div className='search-style'>
         <button className='category hoverClass'>Categories</button>

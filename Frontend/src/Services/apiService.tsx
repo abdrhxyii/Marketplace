@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:4000/'
 const apiService = {
     get: async (endpoint: any) => {
         const response = await axios.get(`${BASE_URL}${endpoint}`)
-        return response.data;
+        return response ;
     },
     post: async (endpoint: any, body: any) => {
         const response = await axios.post(`${BASE_URL}${endpoint}`, body, {
@@ -13,7 +13,7 @@ const apiService = {
                 'Content-Type': 'application/json'
             }
         })
-        response.data
+        return response
     },
     put: async (endpoint: any, body: any) => {
         const response = await axios.put(`${BASE_URL}${endpoint}`, body, {
@@ -21,13 +21,12 @@ const apiService = {
                 'Content-type': 'application/json'
             }
         })
-        response.data
+        response
     },
     delete: async (endpoint: any) => {
         const response = await axios.delete(`${BASE_URL}${endpoint}`);
-        response.data
+        response
     }
-
 }
 
 export default apiService;
