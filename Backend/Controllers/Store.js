@@ -4,26 +4,23 @@ const Auth = require('../Modals/Auth')
 const AuthMiddleware = require('../Middleware/Auth')
 
 exports.CreateStore = async (request, response) => {
+    console.log(request, "request")
     const { store_owner, store_Name, store_Description } = request.body;
-    const { userId } = request.params;
+    const userId = request.params.userId;
 
     try {
-        // AuthMiddleware handles the authentication logic and attaches userId to request
-        await AuthMiddleware(request, response, () => {});
-
-        // Ensure that the authenticated user's ID matches the provided userId
-        if (request.userId === userId) {
-            const store = await Store.create({
-                user_id: userId,
-                store_Name,
-                store_Description
-            });
-
-            console.log(store);
-            response.status(200).json({ message: "Store created Successfully", store });
+        if (userId !== request.userId){
+            response.status(400).json({message: "Forbidden"})
         } else {
-            response.status(403).json({ message: "Unauthorized. You can only create stores for your own user." });
+            const newStore = await Store.create({
+                user_id: userId,
+                store_owner: store_owner,
+                store_Name: store_Name,
+                store_Description: store_Description
+            })
+            response.status(200).json({message: "Store has been created successfully!", newStore})
         }
+
     } catch (error) {
         // console.log(error);
         response.status(400).json({ message: "Error occurred while creating the store", Error: error });

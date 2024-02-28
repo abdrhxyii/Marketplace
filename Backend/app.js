@@ -19,8 +19,8 @@ const firebaseConfig = require('./Config/FirebaseConfig');
 firebase.initializeApp(firebaseConfig)
 
 // Root Routes
-app.use('/auth', AuthenticationRouter)
-app.use('/stores', StoreRouter)
+app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login etc..
+app.use('/stores', StoreRouter) // http://localhost:4000/stores/createStore/userId/store
 
 // Database synchronization
 sequelizeConfigs.sync()
