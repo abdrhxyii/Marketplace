@@ -4,8 +4,11 @@ const cors = require('cors');
 const firebase = require('firebase/app');
 const Logger = require('./Logs/Logger');
 const sequelizeConfigs = require('./Config/DatabaseConfig');
+
+// Routes imports
 const AuthenticationRouter = require('./Routers/Auth')
 const StoreRouter = require('./Routers/Store')
+const BlogsRouter = require('./Routers/Blog')
 
 const PORT = process.env.PORT || 4001;
 const app = express();
@@ -19,8 +22,9 @@ const firebaseConfig = require('./Config/FirebaseConfig');
 firebase.initializeApp(firebaseConfig)
 
 // Root Routes
-app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login etc..
+app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login 
 app.use('/stores', StoreRouter) // http://localhost:4000/stores/createStore/userId/store
+app.use('/blog', BlogsRouter) // http://localhost:4000/blog/createBlogs, getAllBlogs, getBlog:/id
 
 // Database synchronization
 sequelizeConfigs.sync()
