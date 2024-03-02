@@ -7,3 +7,5 @@ route.get('/getAllBlogs', BlogController.getAllBlogs);
 route.get('/getBlog/:id', BlogController.getBlog)
 
 module.exports = route
+
+

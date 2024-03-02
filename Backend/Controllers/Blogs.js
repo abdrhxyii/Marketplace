@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const BlogModel = require('../Modals/Blog');
 
 exports.createBlog = async (request, response) => {

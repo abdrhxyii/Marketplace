@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 // JWT for protecting the routes
 exports.verifyToken = (request, response, next) => {
-    const token = request.header('Authorization')
+    const token = request.headers['authorization']
     try{
         if (!token){
             return response.status(400).json({message: "Unauthorized"})
