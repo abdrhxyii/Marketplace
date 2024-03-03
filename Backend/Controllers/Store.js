@@ -1,7 +1,6 @@
 const Product = require('../Modals/Product');
 const Store = require('../Modals/Store');
 const Auth = require('../Modals/Auth')
-const AuthMiddleware = require('../Middleware/Auth')
 
 exports.CreateStore = async (request, response) => {
     console.log(request, "request")
