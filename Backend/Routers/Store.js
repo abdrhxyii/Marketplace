@@ -1,6 +1,5 @@
 const express = require('express');
 const StoreController = require('../Controllers/Store');
-const AuthMiddleware = require('../Middleware/Auth');
 const JWTAuthMiddleware = require('../Middleware/Authentication')
 const route = express.Router();
 

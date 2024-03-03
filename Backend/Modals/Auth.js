@@ -8,11 +8,6 @@ const User = SequlizeConfig.define("User", {
         allowNull: false,
         primaryKey: true,
     },
-    uid: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-    },
     email: {
         type: Sequelize.STRING,
         allowNull: false,
