@@ -22,7 +22,10 @@ app.use('/stores', StoreRouter) // http://localhost:4000/stores/createStore/user
 app.use('/blog', BlogsRouter) // http://localhost:4000/blog/createBlogs, getAllBlogs, getBlog:/id
 
 // Database synchronization
-sequelizeConfigs.sync({force: true})
+sequelizeConfigs.sync({
+        alter: false,
+        force: false
+    })
     .then(() => {
         app.listen(PORT, () => {
             Logger.info({
