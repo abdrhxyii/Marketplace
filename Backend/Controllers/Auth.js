@@ -1,14 +1,16 @@
 const AuthModal = require('../Modals/Auth');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 exports.RegisterUser = async (request, response) => {
-    const { email, password} = request.body;
+    const { email, password, first_name, last_name} = request.body;
     try {
         const user = await AuthModal.findOne({where: {email: email}})
-
+        
         if (user){
             response.status(401).json({message: "User already exist"})
         } else if (!user){
+            // const hashed = bcrypt.hashSync(password, 10)
             const newUser = await AuthModal.create({
                 email: email,
                 password: password,
@@ -27,7 +29,15 @@ exports.LoginUser = async (request, response) => {
     const { email, password } = request.body;
 
     try {
-        
+        const user = await AuthModal.findOne({where: {email: email}})
+
+        if (user && password === user.password){
+            const jwtToken = jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, { expiresIn: '1h' })
+            response.status(200).json({message: "Login success", Token: jwtToken})
+        } else {
+            response.status(401).json({message: "The provided email address doesn;t exist"})
+        }
+
     } catch (error) {
         console.log(error);
         response.status(500).json({ message: "Error occurred while logging in", error: error.message });

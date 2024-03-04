@@ -30,7 +30,8 @@ const User = SequlizeConfig.define("User", {
     },
     isEmailVerified: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
+        allowNull: true,
     }
 })
 
