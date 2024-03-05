@@ -1,20 +1,20 @@
 const Sequelize = require('sequelize')
 const SequlizeConfig = require('../Config/DatabaseConfig')
+const User = require('./Auth')
 
 const Store = SequlizeConfig.define('Store', {
-    user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    store_Id: {
+    id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    store_owner: {
-        type: Sequelize.STRING,
-        allowNull: true
+    userId: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: User,
+            key: 'id'
+        }
     },
     store_Name: {
         type: Sequelize.STRING,
