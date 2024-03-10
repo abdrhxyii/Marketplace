@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import '../../index.css';
+import apiService from "../../Services/apiService";
+import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
   const route = useNavigate();
@@ -18,20 +20,38 @@ const Login = () => {
     });
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    let body = {
+      email: input.email,
+      password: input.password
+    }
+    try{
+      const data = await apiService.post('auth/login', body)
+      localStorage.setItem('id', data.data.id)
+      localStorage.setItem('authToken', data.data.Token)
+      toast.success(data.data.message)
+      setInput({
+        email: '',
+        password: ''
+      })
+    } catch(error:any){
+      toast.error(error.response.data.message)
+    }
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div>
+      <Toaster position="top-center" reverseOrder={false} />
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="sm:w-full sm:max-w-md relative top-neg-150px">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in to your account
         </h2>
 
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="sr-only">
-              Email address
-            </label>
             <input
-              id="email"
               name="email"
               type="email"
               autoComplete="email"
@@ -44,11 +64,7 @@ const Login = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
             <input
-              id="password"
               name="password"
               type="password"
               autoComplete="current-password"
@@ -82,6 +98,7 @@ const Login = () => {
           </a>
         </p>
       </div>
+    </div>
     </div>
   );
 };
