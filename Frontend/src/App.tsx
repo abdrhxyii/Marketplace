@@ -7,6 +7,11 @@ import Signup from './Components/Auth/Signup';
 import Login from './Components/Auth/Login';
 import PageNotFound from './Components/PageNotFound/PageNotFound';
 import Blog from './Components/Blog/Blog';
+<<<<<<< Updated upstream
+=======
+import BlogCreate from './Components/Blog/BlogCreate/BlogCreate';
+import ProtectedRoute from './Components/ProtectedRoutes/ProtectedRoutes'
+>>>>>>> Stashed changes
 import './App.css'
 import './index.css'
 
@@ -22,7 +27,12 @@ function App() {
       <Route path='/product' element={<Productdetails/>}/>
       <Route path='/auth/login' element={<Login/>}/>
       <Route path='/auth/register' element={<Signup/>}/>
+<<<<<<< Updated upstream
       <Route path='/blog' element={<Blog/>}/>
+=======
+      <Route path='/blogs' element={<Blog/>}/>
+      <Route path='/blog/create' element={<ProtectedRoute element={<BlogCreate/>}/>}/>
+>>>>>>> Stashed changes
     </Routes>
     </>
   )

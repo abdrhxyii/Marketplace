@@ -34,10 +34,23 @@ exports.LoginUser = async (request, response) => {
     const { email, password } = request.body;
 
     try {
+<<<<<<< Updated upstream
         const userRecord = await admin.auth().getUserByEmail(email);
 
         if (!userRecord) {
             return response.status(401).json({ message: "Email address doesn't exist" });
+=======
+        const user = await AuthModal.findOne({where: {email: email}})
+        console.log(user, "user form login")
+
+        if (!user){
+            return response.status(404).json({message: "User doesn't exist"})
+        } else if (user && password === user.password){
+            const jwtToken = jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, { expiresIn: '1h' })
+            response.status(200).json({message: "Login success", Token: jwtToken, id: user.id})
+        } else {
+            return response.status(401).json({message: "Incorrect password"})
+>>>>>>> Stashed changes
         }
 
         const userFromDatabase = await AuthModal.findOne({ where: { uid: userRecord.uid } });

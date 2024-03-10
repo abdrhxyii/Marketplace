@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import '../../index.css';
+import { Toaster, toast } from "react-hot-toast";
+import apiService from "../../Services/apiService";
 
 const Login = () => {
   const route = useNavigate();
-  const [input, setInput] = useState<{ email: string; password: string }>({
+  const [input, setInput] = useState({
     email: "",
     password: "",
   });
@@ -18,20 +20,36 @@ const Login = () => {
     });
   };
 
+  const HandleSubmit = async (e: any) => {
+    e.preventDefault()
+    try{
+      const body = {
+        email: input.email,
+        password: input.password
+      }
+      const data = await apiService.post('auth/login', body)
+      console.log(data, "data")
+      localStorage.setItem('authToken', data.data.Token)
+      localStorage.setItem('id', data.data.id)
+      toast.success(data.data.message)
+      route('/')
+    } catch (error: any) {
+      toast.error(error.response.data.message)
+    }
+  }
+
   return (
+    <div>
+    <Toaster position="top-center" reverseOrder={false} />
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="sm:w-full sm:max-w-md relative top-neg-150px">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in to your account
         </h2>
 
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6 " onSubmit={HandleSubmit}>
           <div>
-            <label htmlFor="email" className="sr-only">
-              Email address
-            </label>
             <input
-              id="email"
               name="email"
               type="email"
               autoComplete="email"
@@ -44,11 +62,7 @@ const Login = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
             <input
-              id="password"
               name="password"
               type="password"
               autoComplete="current-password"
@@ -82,6 +96,7 @@ const Login = () => {
           </a>
         </p>
       </div>
+    </div>
     </div>
   );
 };
