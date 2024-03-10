@@ -30,11 +30,16 @@ const Signup = () => {
       const response = await apiService.post("auth/register", inputData);
       console.log(response);
       toast.success(`${response.data.message}, Please login to continue`);
-      // if (response.status === 200) {
-      //   route('/auth/login');
-      // }
-    } catch (error) {
-      // toast.error(error);
+      setInput({
+        email: '',
+        password: ''
+      })
+    } catch (error: any) {
+      toast.error(error.response.data.message)
+      setInput({
+        email: '',
+        password: ''
+      })
     }
   };
 
@@ -49,11 +54,7 @@ const Signup = () => {
 
           <form className="mt-8 space-y-6" onSubmit={registerUser}>
             <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
               <input
-                id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
@@ -66,11 +67,7 @@ const Signup = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
               <input
-                id="password"
                 name="password"
                 type="password"
                 autoComplete="current-password"

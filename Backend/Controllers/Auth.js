@@ -1,29 +1,24 @@
 const AuthModal = require('../Modals/Auth');
-const { admin } = require('../Config/FirebaseAdmin');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 exports.RegisterUser = async (request, response) => {
-    const { email, password, first_name, last_name } = request.body;
-
+    const { email, password, first_name, last_name} = request.body;
     try {
-        const newUserinFirebase = await admin.auth().createUser({
-            email: email, 
-            password: password 
-        });
-
-        const hashedPassword = bcrypt.hashSync(password, 10);
-
-        const newUserinSequelize = await AuthModal.create({
-            uid: newUserinFirebase.uid,
-            email: newUserinFirebase.email,
-            password: hashedPassword,
-            first_name,
-            last_name
-        });
-
-        const emailVerificationLink = await admin.auth().generateEmailVerificationLink(newUserinFirebase.email);
+        const user = await AuthModal.findOne({where: {email: email}})
         
-        response.status(200).json({ message: "Signed up successfully", data: newUserinSequelize, Verify: emailVerificationLink });
+        if (user){
+            response.status(401).json({message: "User already exist"})
+        } else if (!user){
+            // const hashed = bcrypt.hashSync(password, 10)
+            const newUser = await AuthModal.create({
+                email: email,
+                password: password,
+                first_name: first_name,
+                last_name: last_name
+            })
+            response.status(200).json({message: "Registerred successfully", newUser})
+        }
 
     } catch (error) {
         response.status(400).json({ message: "Error occurred while signing up", error: error.message });
@@ -34,6 +29,7 @@ exports.LoginUser = async (request, response) => {
     const { email, password } = request.body;
 
     try {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         const userRecord = await admin.auth().getUserByEmail(email);
 
@@ -51,38 +47,39 @@ exports.LoginUser = async (request, response) => {
         } else {
             return response.status(401).json({message: "Incorrect password"})
 >>>>>>> Stashed changes
+=======
+        const user = await AuthModal.findOne({where: {email: email}})
+
+        if (user && password === user.password){
+            const jwtToken = jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, { expiresIn: '1h' })
+            response.status(200).json({message: "Login success", Token: jwtToken, id: user.id})
+        } else {
+            response.status(401).json({message: "The provided email address doesn;t exist"})
+>>>>>>> a6420784d24453cc571a97e493e933919261731f
         }
-
-        const userFromDatabase = await AuthModal.findOne({ where: { uid: userRecord.uid } });
-
-        if (userRecord.emailVerified) {
-            userFromDatabase.isEmailVerified = true;
-            await userFromDatabase.save();
-        }
-
-        const validPassword = await bcrypt.compareSync(password, userFromDatabase.password);
-
-        if (!validPassword) {
-            return response.status(402).json({ message: "Incorrect password" });
-        }
-
-        if (!userRecord.emailVerified) {
-            return response.status(403).json({ message: "Please, verify your email address" });
-        }
-
-        const token = await admin.auth().createCustomToken(userRecord.uid);
-
-        response.status(200).json({
-            message: "Login successful",
-            token: token,
-            EmailVerificationStatus: userRecord.emailVerified
-        });
 
     } catch (error) {
         console.log(error);
         response.status(500).json({ message: "Error occurred while logging in", error: error.message });
     }
 };
+
+// 
+exports.createUserProfile = async (request, response) => {
+    const {first_name, last_name} = request.body
+    const id = request.params.id
+
+    try{
+        const user = await AuthModal.findByPk(id)
+        console.log(user, "user from createUserProfile")
+        // if(user){
+
+        // }
+
+    } catch(error){
+        response.status(400).json({Error: "Error occurred while creating user profile", error})
+    }
+}
 
 exports.getUserProfile = async (request, response) => {
     const id = request.params.id

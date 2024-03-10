@@ -15,6 +15,14 @@ const apiService = {
         })
         return response
     },
+    imagePost: async (endpoint: any, body: any) => {
+        const response = await axios.post(`${BASE_URL}${endpoint}`, body, {
+            headers: {
+                'Content-Type': "multipart/form-data"
+            }
+        })
+        return response
+    },
     put: async (endpoint: any, body: any) => {
         const response = await axios.put(`${BASE_URL}${endpoint}`, body, {
             headers: {

@@ -8,11 +8,6 @@ const User = SequlizeConfig.define("User", {
         allowNull: false,
         primaryKey: true,
     },
-    uid: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-    },
     email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -35,7 +30,8 @@ const User = SequlizeConfig.define("User", {
     },
     isEmailVerified: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
+        allowNull: true,
     }
 })
 

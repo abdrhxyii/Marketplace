@@ -3,20 +3,27 @@ const dotenv = require('dotenv');
 dotenv.config();
 // JWT for protecting the routes
 exports.verifyToken = (request, response, next) => {
-    const token = request.headers['authorization']
-    try{
-        if (!token){
-            return response.status(400).json({message: "Unauthorized"})
-            
-        } else {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
-            request.userId = decoded.userId;
-            next(); 
-            return response.status(200).json({ message: "Token verified successfully", decoded });
-        }
+    const authorizationHeader = request.headers['authorization'];
 
-    } catch(error){
-        return response.status(401).json({message: error})
+    if (!authorizationHeader) {
+        return response.status(403).json({ message: 'A token is required for authentication' });
+    }
+
+    // Split the Authorization header to extract the token
+    const tokenParts = authorizationHeader.split(" ");
+
+    if (tokenParts.length !== 2 || tokenParts[0].toLowerCase() !== 'bearer') {
+        return response.status(403).json({ message: 'Invalid token format' });
+    }
+
+    const token = tokenParts[1];
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        request.user = decoded;
+        next();
+    } catch (err) {
+        return response.status(401).send('Invalid Token');
     }
 }
 

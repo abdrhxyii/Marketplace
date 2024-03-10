@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const firebase = require('firebase/app');
 const Logger = require('./Logs/Logger');
 const sequelizeConfigs = require('./Config/DatabaseConfig');
 
@@ -16,10 +15,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Firebase initialization
-const firebaseConfig = require('./Config/FirebaseConfig');
-firebase.initializeApp(firebaseConfig)
+app.use(express.urlencoded({extended: false}));
 
 // Root Routes
 app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login 
@@ -27,7 +23,10 @@ app.use('/stores', StoreRouter) // http://localhost:4000/stores/createStore/user
 app.use('/blog', BlogsRouter) // http://localhost:4000/blog/createBlogs, getAllBlogs, getBlog:/id
 
 // Database synchronization
-sequelizeConfigs.sync()
+sequelizeConfigs.sync({
+        alter: false,
+        force: false
+    })
     .then(() => {
         app.listen(PORT, () => {
             Logger.info({
