@@ -14,7 +14,6 @@ exports.CreateStore = async (request, response) => {
         })
         return response.status(200).json({data: store})
     } catch (error) {
-        // console.log(error);
         response.status(400).json({ message: "Error occurred while creating the store", Error: error });
     }
 };

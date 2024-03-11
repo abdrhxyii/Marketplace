@@ -33,7 +33,7 @@ const BlogCreate = () => {
             formData.append("image", input.image)
             formData.append("title", input.title)
             formData.append("description", input.description)
-            const data = await apiService.imagePost(`createBlogs/${id}`, formData)
+            const data = await apiService.imagePost(`create/${id}`, formData)
             toast.success("Blog created successfully")
             console.log(data)
         } catch(error){

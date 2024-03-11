@@ -1,19 +1,21 @@
 const BlogModel = require('../Modals/Blog');
 const multer = require('multer')
+const upload = multer({ dest: "images/" });
+
 const path = require('path')
 
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../Public/uploads'),
-    filename: (request, file, callback) => {
-        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-        console.log(callback, "callback")
-    }
-})
+// const storage = multer.diskStorage({
+//     destination: path.join(__dirname, '../Public/uploads'),
+//     filename: (request, file, callback) => {
+//         callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//         console.log(callback, "callback")
+//     }
+// })
 
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 }
-}).single('image')
+// const upload = multer({
+//     storage: storage,
+//     limits: { fileSize: 1000000 }
+// }).single('image')
 
 exports.createBlog = async (request, response) => {
     upload(req,res,err => {
