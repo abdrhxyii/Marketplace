@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: false}));
 // Root Routes
 app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login 
 app.use('/stores', StoreRouter) // http://localhost:4000/stores/createStore/userId/store
-app.use('/blog', BlogsRouter) // http://localhost:4000/blog/createBlogs, getAllBlogs, getBlog:/id
+app.use('/blog', BlogsRouter) // http://localhost:4000/blog/create:id, blogs, /blog/:id, blog/:id/blogs
 
 // Database synchronization
 sequelizeConfigs.sync({

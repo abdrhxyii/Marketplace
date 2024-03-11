@@ -37,8 +37,6 @@ exports.LoginUser = async (request, response) => {
         if (!user){
             response.status(404).json({message: "The provided email address doesn't exist"})
         } else if (user && password === user.password){
-            const jwtSecretKey = crypto.randomBytes(32).toString('hex');
-            console.log(jwtSecretKey, "jwtSecretKey");
             const jwtToken = jwt.sign({id: user.id}, secretKey, { expiresIn: '1h' })
             response.status(200).json({message: "Login success", Token: jwtToken, id: user.id})
         } else {
