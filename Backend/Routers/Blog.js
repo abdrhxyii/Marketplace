@@ -3,9 +3,23 @@ const AuthMiddleware = require('../Middleware/Authentication')
 const express = require('express')
 const route = express.Router();
 
-route.post('/create/:id', AuthMiddleware.verifyToken, BlogController.createBlog);
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'images/')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now();
+      cb(null, uniqueSuffix + file.originalname);
+    }
+  })
+  
+const upload = multer({ storage: storage })
+
+route.post('/create/:id', upload.single('image'), AuthMiddleware.verifyToken, BlogController.createBlog);
 route.get('/blogs', BlogController.getAllBlogs);
 route.get('/blog/:id', BlogController.getBlog)
-route.get('/blog/:id/blogs', AuthMiddleware.verifyToken, BlogController.getBlogsByUser)
+route.get('/:id/blogs', AuthMiddleware.verifyToken, BlogController.getBlogsByUser)
 
 module.exports = route

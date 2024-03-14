@@ -1,42 +1,20 @@
 const BlogModel = require('../Modals/Blog');
-const multer = require('multer')
-const upload = multer({ dest: "images/" });
-
-const path = require('path')
-
-// const storage = multer.diskStorage({
-//     destination: path.join(__dirname, '../Public/uploads'),
-//     filename: (request, file, callback) => {
-//         callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//         console.log(callback, "callback")
-//     }
-// })
-
-// const upload = multer({
-//     storage: storage,
-//     limits: { fileSize: 1000000 }
-// }).single('image')
 
 exports.createBlog = async (request, response) => {
-    upload(req,res,err => {
-        if(err){
-            return res.status(200).json({message: err.message})
-        }
-    })
 
     const {title, description} = request.body
-    const imagePath = request.file  ? '/uploads/' + request.file.filename : null;
+    const image = request.file
     const id = request.params.id
 
     try {
         const newPost = await BlogModel.create({
-            image: imagePath,
+            image: image,
             title: title,
             description: description,
             userId: id
         })
 
-        return response.status(200).json({message: "Post created successfully", newPost})
+        return response.status(200).json({message: "Blog created successfully", newPost})
 
     }catch(error){
         console.log(error)

@@ -15,10 +15,11 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/images', express.static('images'))
 app.use(express.urlencoded({extended: false}));
 
 // Root Routes
-app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login 
+app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login, /profile/:id
 app.use('/stores', StoreRouter) // http://localhost:4000/stores/createStore/userId/store
 app.use('/blog', BlogsRouter) // http://localhost:4000/blog/create:id, blogs, /blog/:id, blog/:id/blogs
 

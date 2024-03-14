@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 // JWT for protecting the routes
+
 exports.verifyToken = (request, response, next) => {
     const authorizationHeader = request.headers['authorization'];
 
