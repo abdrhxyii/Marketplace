@@ -5,16 +5,16 @@ import apiService from "../../../Services/apiService";
 const BlogCreate = () => {
 
     const [input, setInput] = useState({
-        image: null as unknown as File || null,
+        image: '',
         title: '',
         description: ''
     })
 
     const handleFileChanges = (event: any) => {
-        setInput((prevState) => ({
-            ...prevState,
-            image: event.target.files[0] || null
-        }))
+      setInput((prevState) => ({
+        ...prevState,
+        image: event.target.files[0]
+      }))
     }
 
     const handleInputChanges = (event: any) => {
@@ -28,14 +28,22 @@ const BlogCreate = () => {
     const handleSubmit = async (event: any) => {
         event.preventDefault()
         try{
-            const id = 4
+          if (!input.image){
+            toast.error("Please, select a image")
+          } else {
             const formData = new FormData()
             formData.append("image", input.image)
             formData.append("title", input.title)
             formData.append("description", input.description)
-            const data = await apiService.imagePost(`create/${id}`, formData)
-            toast.success("Blog created successfully")
+            const data = await apiService.imagePost(`blog/create/${localStorage.getItem('id')}`, formData)
+            toast.success(data?.data?.message)
             console.log(data)
+            setInput({
+              image:'',
+              title: '',
+              description: ''
+            })
+          }
         } catch(error){
             toast.error("Error occurred while creating the blog")
             console.log(error)
@@ -57,7 +65,6 @@ const BlogCreate = () => {
               <input
                 type="file"
                 name="image"
-                accept="image/*"
                 onChange={handleFileChanges}
                 required
               />
