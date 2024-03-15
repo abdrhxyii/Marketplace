@@ -8,11 +8,17 @@ const Blog = () => {
     return moment(data).format('MMMM D, YYYY')
   }
 
+  const backendUrl = 'http://localhost:4001/'
+
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const result = await apiService.get('blog/getAllBlogs')
+        const result = await apiService.get('blog/blogs')
         const blogs = result.data.data
+        // const blogsArrya = blogs.map((blog: any) => blog.image)
+        // console.log(blogsArrya, "blogsArrya")
+        // const imageUrl = backendUrl + blogs.image
+        // console.log(imageUrl, "imageUrl")
 
         console.log(blogs, "blogs data")
         setBlog(blogs)
