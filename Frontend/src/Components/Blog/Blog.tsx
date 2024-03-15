@@ -15,11 +15,6 @@ const Blog = () => {
       try{
         const result = await apiService.get('blog/blogs')
         const blogs = result.data.data
-        // const blogsArrya = blogs.map((blog: any) => blog.image)
-        // console.log(blogsArrya, "blogsArrya")
-        // const imageUrl = backendUrl + blogs.image
-        // console.log(imageUrl, "imageUrl")
-
         console.log(blogs, "blogs data")
         setBlog(blogs)
       } catch(error){
@@ -36,7 +31,7 @@ const Blog = () => {
         <div className="space-y-6">
           {blog.map((post: any, index) => (
             <div key={index} className="bg-white shadow-md rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <img src={post.image} className="w-full sm:w-36 h-36 object-cover rounded-lg mb-4 sm:mb-0" />
+              <img src={`${backendUrl}${post.image}`} className="w-full sm:w-36 h-36 object-cover rounded-lg mb-4 sm:mb-0" />
               <div className="flex-1">
                 <h3 className="font-bold text-xl mb-2">{post.title}</h3>
                 <p className="text-gray-700 mb-2">{post.description.length > 100 ? (post.description).slice(0,100) + '...' : post.description}</p>
