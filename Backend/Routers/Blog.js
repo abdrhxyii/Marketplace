@@ -21,5 +21,6 @@ route.post('/create/:id', upload.single('image'), AuthMiddleware.verifyToken, Bl
 route.get('/blogs', BlogController.getAllBlogs);
 route.get('/blog/:id', BlogController.getBlog)
 route.get('/:id/blogs', AuthMiddleware.verifyToken, BlogController.getBlogsByUser)
+route.delete( '/delete' , BlogController.deleteBlogs)
 
 module.exports = route

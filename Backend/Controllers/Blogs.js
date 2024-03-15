@@ -8,7 +8,7 @@ exports.createBlog = async (request, response) => {
 
     try {
         const newPost = await BlogModel.create({
-            image: image,
+            image: 'images/' + image.filename,
             title: title,
             description: description,
             userId: id
@@ -50,6 +50,16 @@ exports.getAllBlogs = async (request, response) => {
         }
     }catch(error){
         response.status(400).json({message: "Error occurred while retrieving the blogs", error})
+    }
+}
+
+exports.deleteBlogs = async (request, response) => {
+    try{
+        await BlogModel.destroy({where: {}})
+        response.status(200).json({message: "All Blogs Deleted"})
+
+    } catch(error){
+        response.status(400).json({message: "Error occurred while deleting the blogs"})
     }
 }
 
