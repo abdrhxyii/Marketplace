@@ -15,7 +15,6 @@ const Blog = () => {
       try{
         const result = await apiService.get('blog/blogs')
         const blogs = result.data.data
-        console.log(blogs, "blogs data")
         setBlog(blogs)
       } catch(error){
         console.log(error)
