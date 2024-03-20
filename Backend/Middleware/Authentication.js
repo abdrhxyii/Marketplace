@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
-// JWT for protecting the routes
 
 exports.verifyToken = (request, response, next) => {
     const authorizationHeader = request.headers['authorization'];
@@ -9,8 +8,6 @@ exports.verifyToken = (request, response, next) => {
     if (!authorizationHeader) {
         return response.status(403).json({ message: 'A token is required for authentication' });
     }
-
-    // Split the Authorization header to extract the token
     const tokenParts = authorizationHeader.split(" ");
 
     if (tokenParts.length !== 2 || tokenParts[0].toLowerCase() !== 'bearer') {

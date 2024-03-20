@@ -2,27 +2,30 @@ const Sequelize = require('sequelize')
 const SequlizeConfig = require('../Config/DatabaseConfig')
 
 const Product = SequlizeConfig.define('Product', {
-    product_Id: {
+    id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    product_Name: {
+    image: {
+        type: Sequelize.BLOB,
+        allowNull: true,
+    },
+    name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
     },
-    product_Description: {
+    description: {
         type: Sequelize.TEXT,
         allowNull: true
     },
-    product_Location: {
+    location: {
         type: Sequelize.STRING,
         allowNull: false,
     },
     // no. of days takes to delivery the product or come and take option
-    product_Delivery_Detail: {
+    delivery_info: {
         type: Sequelize.STRING,
         allowNull: false
     },

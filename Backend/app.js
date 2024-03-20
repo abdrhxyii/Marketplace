@@ -8,6 +8,7 @@ const sequelizeConfigs = require('./Config/DatabaseConfig');
 const AuthenticationRouter = require('./Routers/Auth')
 const StoreRouter = require('./Routers/Store')
 const BlogsRouter = require('./Routers/Blog')
+const ProductRouter = require('./Routers/Product')
 
 const PORT = process.env.PORT || 4001;
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended: false}));
 app.use('/auth', AuthenticationRouter) // http://localhost:4000/auth/register, /login, /profile/:id
 app.use('/stores', StoreRouter) // http://localhost:4000/stores/createStore/userId/store
 app.use('/blog', BlogsRouter) // http://localhost:4000/blog/create:id, blogs, /blog/:id, blog/:id/blogs
+app.use('/product', ProductRouter)
 
 // Database synchronization
 sequelizeConfigs.sync({
