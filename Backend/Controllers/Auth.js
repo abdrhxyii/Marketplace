@@ -1,9 +1,7 @@
 const AuthModal = require('../Modals/Auth');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const crypto = require('crypto');
 
-const secretKey = '90181323484392625575ba0a8f264a6ec041df66d13d955fb44e66cd67dd6d9c'
 exports.RegisterUser = async (request, response) => {
     const { email, password, first_name, last_name} = request.body;
     try {
@@ -36,7 +34,7 @@ exports.LoginUser = async (request, response) => {
         if (!user){
             response.status(404).json({message: "The provided email address doesn't exist"})
         } else if (user && password === user.password){
-            const jwtToken = jwt.sign({id: user.id}, secretKey)
+            const jwtToken = jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY)
             response.status(200).json({message: "Login success", Token: jwtToken, id: user.id})
         } else {
             response.status(401).json({message: "Incorrect password"})
