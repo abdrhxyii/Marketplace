@@ -47,3 +47,5 @@ sequelizeConfigs.sync({
             error: err
         });
     });
+
+module.exports = app
