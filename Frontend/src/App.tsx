@@ -1,8 +1,6 @@
 import Home from './Components/Home/Home';
 import {Routes, Route} from 'react-router-dom';
 import Productdetails from './Components/Product-Details/Productdetails';
-// import Navbar from './Components/Navbar/Navbar';
-// import Banner from './Components/Navbar/Banner/Banner';
 import Signup from './Components/Auth/Signup';
 import Login from './Components/Auth/Login';
 import PageNotFound from './Components/PageNotFound/PageNotFound';
