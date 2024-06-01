@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "vite.config.ts",
-      "use": "@vercel/react",
+      "src": "package.json",
+      "use": "@vercel/static-build",
       "config": {
-        "output": "dist"
+        "distDir": "dist"
       }
     }
   ],
