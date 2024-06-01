@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "vite.config.ts",
-      "use": "@vercel/vite",
+      "use": "@vercel/react",
       "config": {
         "output": "dist"
       }
