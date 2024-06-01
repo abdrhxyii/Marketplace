@@ -8,7 +8,6 @@ import Login from './Components/Auth/Login';
 import PageNotFound from './Components/PageNotFound/PageNotFound';
 import Blog from './Components/Blog/Blog';
 import BlogCreate from './Components/Blog/BlogCreate/BlogCreate';
-import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes';
 import BlogPost from './Components/Blog/BlogPost';
 import Cart from './Components/Cart/Cart'
 import './App.css'

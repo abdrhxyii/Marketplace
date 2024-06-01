@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
 
 const Product = ({ name, image, price }: any) => {
   const route = useNavigate()
-  const [title, setTitle] = useState('Elevate your morning ritual with the BrewMaster Deluxe Coffee Make');
+  const title = 'Elevate your morning ritual with the BrewMaster Deluxe Coffee Make';
   const limitedTitle = title.length > 35 ? `${title.slice(0, 35)}...` : title;
 
   const handleroute = () => {
