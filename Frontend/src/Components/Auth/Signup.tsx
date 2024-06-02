@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import apiService from "../../Services/apiService";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
+import Navbar from "../Navbar/Navbar";
 import '../../index.css';
 
 const Signup = () => {
@@ -45,6 +46,7 @@ const Signup = () => {
 
   return (
     <div>
+      <Navbar/>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="sm:w-full sm:max-w-md relative top-neg-150px">

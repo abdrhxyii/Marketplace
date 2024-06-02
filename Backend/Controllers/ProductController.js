@@ -1,5 +1,8 @@
 const productModel = require('../Modals/ProductModal');
-const categoryModal = require('../Modals/CategoryModal')
+const categoryModal = require('../Modals/CategoryModal');
+const NodeCache = require('node-cache');
+// Cache TTL set to 1800 seconds (30 minutes)
+const cache = new NodeCache({ stdTTL: 112.5 }); 
 
 exports.createProduct = async (request, response) => {
     const { name, description, price, categoryId } = request.body;
@@ -55,7 +58,13 @@ exports.GetProductById = async (request, response) => {
         if (!product){
             response.status(404).json({message: "Product Not Found"})
         } else {
-            response.status(200).json(product)
+            let recommendations = cache.get('recommendations')
+            if (!recommendations){
+                const allproducst = await productModel.findAll()
+                recommendations = allproducst.sort( () => 0.5 - Math.random()).slice(0,6)
+                cache.set("recommendations", recommendations)
+            }
+            response.status(200).json({product, recommendations})
         }
 
     }catch(error){

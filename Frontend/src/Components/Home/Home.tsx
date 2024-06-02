@@ -4,9 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import apiService from "../../Services/apiService";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 // import Footer from "../Footer/Footer";
 
 const Home = () => {
+  const route = useNavigate();
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -21,6 +23,10 @@ const Home = () => {
     .catch(error => console.log(error))
   }
 
+  const handleProductDetailRoute = (id: number) => {
+    route(`product/${id}`)
+  }
+
   return (
     <>
       <Navbar />
@@ -31,6 +37,7 @@ const Home = () => {
             name={products.name}
             image={`http://localhost:4000/images/${products.image}`}
             price={products.price}
+            onClick={() => handleProductDetailRoute(products.id)}
           />))}
       </div>
     </>

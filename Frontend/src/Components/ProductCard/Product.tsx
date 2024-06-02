@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-const Product = ({ name, image, price }: any) => {
+const Product = ({ name, image, price, onClick }: any) => {
   const route = useNavigate()
   const title = 'Elevate your morning ritual with the BrewMaster Deluxe Coffee Make';
   const limitedTitle = title.length > 35 ? `${title.slice(0, 35)}...` : title;
@@ -10,7 +10,7 @@ const Product = ({ name, image, price }: any) => {
   }
 
   return (
-    <div className="m-2 max-w-52 bg-white shadow-lg rounded-lg overflow-hidden">
+    <div onClick={onClick} className="m-2 max-w-52 bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="m-3">
       <img src={image} alt={name} className="w-full h-56 object-cover object-center rounded-2xl" />
       </div>

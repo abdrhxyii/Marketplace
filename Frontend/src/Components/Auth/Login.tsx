@@ -3,6 +3,7 @@ import { useState } from "react";
 import '../../index.css';
 import apiService from "../../Services/apiService";
 import { Toaster, toast } from "react-hot-toast";
+import Navbar from "../Navbar/Navbar";
 
 const Login = () => {
   const route = useNavigate();
@@ -10,10 +11,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-
-  // useEffect(() => {
-  //   localStorage.clear()
-  // })
 
   const fieldtriggerred = (e: any) => {
     const { name, value } = e.target;
@@ -48,6 +45,7 @@ const Login = () => {
 
   return (
     <div>
+      <Navbar/>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="sm:w-full sm:max-w-md relative top-neg-150px">
