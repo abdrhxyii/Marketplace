@@ -17,3 +17,16 @@ exports.CreateCategory = async (request, response) => {
         response.status(500).json({message: "Error ccurred while creating the category"})
     }
 }
+
+exports.GetAllCategory = async (request, response) => {
+    try{
+        const categories = await CategoryModal.findAll()
+        if (categories){
+            response.status(200).json(categories)
+        } else {
+            response.status(404).json("No Category Found")
+        }
+    } catch (error) {
+        response.status(500).json({message: "Error ccurred while retrieving the category"})
+    }
+}

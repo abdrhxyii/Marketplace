@@ -19,5 +19,6 @@ const upload = multer({ storage: storage });
 route.post('/', upload.single('image'), authMiddleware.verifyToken, authMiddleware.AdminMiddleware, productController.createProduct);
 route.get('/:id', productController.GetProductById)
 route.get('/category/:id', productController.getProductsByCategory)
+route.get('/', productController.getAllProducts)
 
 module.exports = route;

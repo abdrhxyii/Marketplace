@@ -1,10 +1,24 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-// import { Xmark, Plus } from 'iconoir-react';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Xmark, Plus } from 'iconoir-react';
+import apiService from '../../Services/apiService';
 
 const Navbar = () => {
+  const location = useLocation()
+  const token = localStorage.getItem('authToken')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [category, setCategory] = useState([])
+
+  const handleCategorycall = () => {
+    apiService.get('category')
+    .then((data) => setCategory(data.data))
+    .catch((error) => console.log(error, "eror"))
+  }
+
+  useEffect(() => {
+    handleCategorycall()
+  }, [location])
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -14,9 +28,14 @@ const Navbar = () => {
     setIsSidebarOpen(false);
   };
 
-  // const toggleDropdown = () => {
-  //   setIsDropdownOpen(!isDropdownOpen);
-  // };
+  const handleLogout = () => {
+    localStorage.clear()
+    closeSidebar()
+  }
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   return (
     <>
@@ -31,12 +50,11 @@ const Navbar = () => {
               </svg>
             </button>
             <Link to="/" className="text-xl font-bold text-white hidden sm:block">Market</Link>
-            {/* <button onClick={toggleDropdown} className="sm:hidden text-white focus:outline-none flex flex-row ml-4">
-              All 
-              {
-                isDropdownOpen === false ? <Plus /> : <Xmark/>
+              { location.pathname !== '/product'?
+                <button onClick={toggleDropdown} className="sm:hidden text-white focus:outline-none flex flex-row ml-4">
+                  All { isDropdownOpen === false ? <Plus /> : <Xmark/>}
+                </button> : <></>
               }
-            </button> */}
             <div className="relative w-64 sm:w-80 ml-3 flex items-center">
               <input
                 type="search"
@@ -58,8 +76,13 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="space-x-4 hidden sm:flex">
-              <Link to="/login" className="text-white hover:text-gray-300 font-bold">Login</Link>
-              <Link to="/register" className="text-white hover:text-gray-300 font-bold">Signup</Link>
+              { !token ?
+                <>
+                  <Link to="/login" className="text-white hover:text-gray-300 font-bold">Login</Link>
+                  <Link to="/register" className="text-white hover:text-gray-300 font-bold">Signup</Link>
+                </> :
+                  <Link to="" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={handleLogout}>Logout</Link>
+              }
               <Link to="/blogs" className="text-white hover:text-gray-300 font-bold">Blogs</Link>
               <Link to="/cart" className="text-white hover:text-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -73,16 +96,22 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* {isDropdownOpen && (
+      {/* <Link to="/category/electronics" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Electronics</Link>
+      <Link to="/category/fashion" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Fashion</Link>
+      <Link to="/category/home" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Home</Link>
+      <Link to="/category/toys" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Toys</Link> */}
+
+      {isDropdownOpen && (
         <div className="absolute top-16 left-0 w-full bg-black shadow-lg sm:hidden">
           <div className="container mx-auto px-4 py-2">
-            <Link to="/category/electronics" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Electronics</Link>
-            <Link to="/category/fashion" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Fashion</Link>
-            <Link to="/category/home" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Home</Link>
-            <Link to="/category/toys" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={toggleDropdown}>Toys</Link>
+            {
+              category.map((category: any) => (
+                <Link key={category.id} to={`/category/${category.id}`} className="block text-white hover:text-gray-300 font-bold mb-2">{category.name}</Link>
+              ))
+            }
           </div>
         </div>
-      )} */}
+      )}
 
       {/* Sidebar */}
       <div className={`fixed inset-0 bg-gray-600 bg-opacity-50 z-50 transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} sm:hidden`}>
@@ -94,9 +123,15 @@ const Navbar = () => {
             </svg>
           </button>
           <Link to="/" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={closeSidebar}>Home</Link>
-          <Link to="/login" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={closeSidebar}>Login</Link>
-          <Link to="/register" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={closeSidebar}>Signup</Link>
           <Link to="/blogs" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={closeSidebar}>Blogs</Link>
+          { !token ? 
+            <>
+              <Link to="/login" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={closeSidebar}>Login</Link>
+              <Link to="/register" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={closeSidebar}>Signup</Link>
+            </>
+            :
+            <Link to="" className="block text-white hover:text-gray-300 font-bold mb-2" onClick={handleLogout}>Logout</Link>
+          }
         </div>
       </div>
     </>

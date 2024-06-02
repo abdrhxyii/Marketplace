@@ -40,7 +40,7 @@ exports.getProductsByCategory = async (request, response) => {
         if (!product){
             response.status(404).json({message: "Product Not Found"})
         } else {
-            response.status(200).json({data: product})
+            response.status(200).json({categoryname: category.name, data: product})
         }
 
     }catch(error){
@@ -60,5 +60,18 @@ exports.GetProductById = async (request, response) => {
 
     }catch(error){
         response.status(500).json({message: "Error occurred while retrieving the products"})
+    }
+}
+
+exports.getAllProducts = async (request, response) => {
+    try{
+        const product = await productModel.findAll()
+        if (!product){
+            response.status(404).json({message: "Product Not Found"})
+        } else {
+            response.status(200).json({data: product})
+        }
+    }catch(error){
+        response.status(500).json({message: "Error ccurred while retrieving the products by category"})
     }
 }

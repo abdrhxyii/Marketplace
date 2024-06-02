@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../../index.css';
 import apiService from "../../Services/apiService";
 import { Toaster, toast } from "react-hot-toast";
@@ -10,6 +10,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  // useEffect(() => {
+  //   localStorage.clear()
+  // })
 
   const fieldtriggerred = (e: any) => {
     const { name, value } = e.target;
@@ -30,11 +34,13 @@ const Login = () => {
       const data = await apiService.post('auth/login', body)
       localStorage.setItem('id', data.data.id)
       localStorage.setItem('authToken', data.data.Token)
+      localStorage.setItem('role', data.data.role)
       toast.success(data.data.message)
       setInput({
         email: '',
         password: ''
       })
+      route('/')
     } catch(error:any){
       toast.error(error.response.data.message)
     }

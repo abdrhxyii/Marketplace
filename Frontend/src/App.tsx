@@ -8,6 +8,7 @@ import Blog from './Components/Blog/Blog';
 import BlogCreate from './Components/Blog/BlogCreate/BlogCreate';
 import BlogPost from './Components/Blog/BlogPost';
 import Cart from './Components/Cart/Cart'
+import Category from './Components/Category/Category'
 import './App.css'
 import './index.css'
 
@@ -26,10 +27,10 @@ function App() {
       <Route path='/blog/create' element={<BlogCreate/>}/>
       <Route path='/blogsss' element={<BlogPost/>}/>
       <Route path='/cart' element={<Cart/>}/>
+      <Route path='/category/:id' element={<Category/>}/>
     </Routes>
     </>
   )
 }
-
 
 export default App
