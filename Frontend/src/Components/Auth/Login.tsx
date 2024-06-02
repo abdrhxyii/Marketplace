@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import '../../index.css';
 import apiService from "../../Services/apiService";
 import { Toaster, toast } from "react-hot-toast";
