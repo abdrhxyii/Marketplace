@@ -10,7 +10,7 @@ const ProductRouter = require('./Routers/ProductRouter')
 const CommentRouter = require('./Routers/CommentRouter')
 const CategoryRouter = require('./Routers/CategoryRouter')
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT;
 const app = express();
 
 // Middleware
