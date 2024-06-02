@@ -1,5 +1,3 @@
-import React from 'react';
-
 const UserCount = ({ count } : any) => {
   return (
     <div>
