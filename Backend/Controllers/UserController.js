@@ -8,22 +8,22 @@ exports.RegisterUser = async (request, response) => {
         const existingUser = await AuthModal.findOne({ where: { email: email } });
 
         if (existingUser) {
-            return response.status(401).json({ message: "User already exists" });
+            return response.status(409).json({ message: "User already exists" });
+        } else {
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            const newUser = await AuthModal.create({
+                email: email,
+                password: hashedPassword,
+                first_name: first_name,
+                last_name: last_name,
+                role: role
+            });
+    
+            response.status(201).json({ message: "Registered successfully", newUser });
         }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newUser = await AuthModal.create({
-            email: email,
-            password: hashedPassword,
-            first_name: first_name,
-            last_name: last_name,
-            role: role
-        });
-
-        response.status(200).json({ message: "Registered successfully", newUser });
     } catch (error) {
-        response.status(400).json({ message: "Error occurred while signing up", error: error.message });
+        response.status(500).json({ message: "Error occurred while signing up", error: error.message });
     }
 };
 
@@ -61,10 +61,10 @@ exports.getUserProfile = async (request, response) => {
     const id = request.params.id
     try{
         const UserDetail = await AuthModal.findAll({where: {id: id}});
-        if (UserDetail){
+        if (UserDetail.length > 0){
             response.status(200).json({message: UserDetail})
         } else {
-            response.status(401).json({message: "No user found"})
+            response.status(404).json({message: "No user found"})
         }
         
     } catch (error) {
