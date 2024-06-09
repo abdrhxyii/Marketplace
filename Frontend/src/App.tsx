@@ -10,13 +10,16 @@ import BlogPost from './Components/Blog/BlogPost';
 import Cart from './Components/Cart/Cart';
 import Category from './Components/Category/Category';
 import AdminApp from './AdminPanel/AdminApp';
+import { Provider } from 'react-redux';
 import './App.css'
 import './index.css'
+import Store from './Redux/Store'
 
 function App() {
 
   return (
-    <>    
+    <>
+    <Provider store={Store}>
     <Routes>
       <Route path='*' element={<PageNotFound/>}/>
       <Route path='/' element={<Home/>}/>
@@ -31,6 +34,7 @@ function App() {
       <Route path='/category/:id' element={<Category/>}/>
       <Route path='/admin' element={<AdminApp/>}/>
     </Routes>
+    </Provider>
     </>
   )
 }

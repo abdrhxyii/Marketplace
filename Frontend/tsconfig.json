@@ -1,25 +1,32 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
+    "target": "ES2020",                   
+    "useDefineForClassFields": true,      
+    "lib": ["ES2020", "DOM", "DOM.Iterable"], 
+    "module": "ESNext",                   // Use ESNext module system
+    "skipLibCheck": true,                 // Skip type checking of declaration files
+    "moduleResolution": "bundler",        // Use module resolution suitable for bundlers like webpack or vite
+    "allowImportingTsExtensions": true,   // Allow importing TypeScript files with extensions
+    "resolveJsonModule": true,            // Enable importing JSON files as modules
+    "isolatedModules": true,              // Ensure each file is treated as an isolated module
+    "noEmit": true,                       // Do not emit compiled output
+    "jsx": "react-jsx",                   // Use React's JSX transform
 
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": true,                       // Enable all strict type-checking options
+    "noUnusedLocals": true,               // Report errors on unused locals
+    "noUnusedParameters": true,           // Report errors on unused parameters
+    "noFallthroughCasesInSwitch": true,   // Report errors on fallthrough cases in switch statements
+
+    /* Additional Options */
+    "esModuleInterop": true,              // Enable interoperability between CommonJS and ES Modules
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in file names
+    "baseUrl": "./src",                   // Set the base URL for module resolution
+    "paths": {
+      "@/*": ["./*"]                      // Set up path aliases
+    },
+    "allowSyntheticDefaultImports": true  // Allow default imports from modules with no default export
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"],                     // Include the src directory in the compilation
+  "references": [{ "path": "./tsconfig.node.json" }] // Reference node-specific configuration
 }

@@ -1,5 +1,5 @@
 // import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../Navbar/Navbar';
 import Product from '../ProductCard/Product';
@@ -7,10 +7,13 @@ import { Toaster, toast } from "react-hot-toast";
 import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import apiService from '../../Services/apiService';
+import { useDispatch } from 'react-redux';
+import {addItemToCart} from '../../Redux/cartSlice'
 
 const Productdetails: React.FC = () => {
   const param = useParams()
   const route = useNavigate()
+  const dispatch = useDispatch()
   const [recommendation, setRecommendation] = useState([])
   const [productDetail, setProductDetail] = useState({
     image: '',
@@ -24,6 +27,7 @@ const Productdetails: React.FC = () => {
     if (!token){
       route('/login')
     } else {
+      dispatch(addItemToCart(productDetail))
       toast.success("Proceed with payment")
     }
   }
