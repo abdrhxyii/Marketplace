@@ -1,4 +1,6 @@
-const {Blog, Comment} = require('../Associations')
+const {Blog, Comment} = require('../Associations');
+const s3Client = require('../Configurations/AwsS3Configuration')
+const {PutObjectCommand} = require('@aws-sdk/client-s3')
 
 exports.createBlog = async (request, response) => {
 
@@ -6,8 +8,20 @@ exports.createBlog = async (request, response) => {
     const image = request.file
 
     try {
+        const uniqueSuffix = Date.now + '-' + Math.round(Math.random() * 1E9)
+        const keyfile = `blogobject/${uniqueSuffix}-${image.originalname}`
+
+        const s3param = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: keyfile,
+            Body: image.buffer
+        }
+
+        const command = new PutObjectCommand(s3param)
+        await s3Client.send(command)
+
         const newPost = await Blog.create({
-            image: image.filename,
+            image: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_BUCKET_REGION}.amazonaws.com/${keyfile}`,
             title: title,
             description: description,
         })
