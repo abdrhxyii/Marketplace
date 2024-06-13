@@ -27,7 +27,8 @@ exports.createProduct = async (request, response) => {
             Bucket: process.env.AWS_BUCKET_NAME,
             Key: fileKey,
             Body: imageFile.buffer,
-            ContentType: imageFile.mimetype
+            ContentType: imageFile.mimetype,
+            ACL: 'public-read'
         };
         // console.log(uploadparams, "uploadparams")
 

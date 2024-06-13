@@ -18,6 +18,7 @@ const Home = () => {
   const handleProductsCall = () => {
     apiService.get('product')
     .then((data:any) => {
+      console.log(data.data.data)
       setProducts(data.data.data)
     })
     .catch(error => console.log(error))
@@ -35,7 +36,7 @@ const Home = () => {
           <Product
             key={products.id}
             name={products.name}
-            image={`http://localhost:4000/images/${products.image}`}
+            image={products.image}
             price={products.price}
             onClick={() => handleProductDetailRoute(products.id)}
           />))}
