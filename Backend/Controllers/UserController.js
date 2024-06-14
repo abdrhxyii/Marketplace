@@ -1,6 +1,8 @@
 const AuthModal = require('../Modals/UserModal');
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 exports.RegisterUser = async (request, response) => {
     const { email, password, first_name, last_name, role } = request.body;
@@ -11,21 +13,57 @@ exports.RegisterUser = async (request, response) => {
             return response.status(409).json({ message: "User already exists" });
         } else {
             const hashedPassword = await bcrypt.hash(password, 10);
+            const verificationtoken = crypto.randomBytes(64).toString('hex')
 
             const newUser = await AuthModal.create({
                 email: email,
                 password: hashedPassword,
                 first_name: first_name,
                 last_name: last_name,
-                role: role
+                role: role,
+                verificationToken: verificationtoken
             });
-    
-            response.status(201).json({ message: "Registered successfully", newUser });
+
+            const transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'mmarahman4847@gmail.com',
+                    pass: 'Mmar4847xyii'
+                }
+            });
+
+            const mailOptions = {
+                from: 'mmarahman4847@gmail.com',
+                to: `${email}`,
+                subject: 'Email Verification',
+                html: `<h2>Thank you for registering on our site</h2>
+                       <p>Please click on the following link to verify your email:</p>
+                       <a href="http://${request.headers.host}/verify-email?token=${verificationtoken}">Verify Email</a>`
+            };
+
+            await transporter.sendMail(mailOptions, (info, error) => {
+                if (error){
+                    console.log(error)
+                    response.status(400).json({message: "Error when sending the email address"})
+                } else {
+                    response.status(201).json({ message: "Registered successfully, Please check your mail to verify your email address", newUser});
+                }
+            });
         }
     } catch (error) {
         response.status(500).json({ message: "Error occurred while signing up", error: error.message });
     }
 };
+
+// exports.verifyemail = async (request, response) => {
+//     const {Token} = request.query;
+//     try{
+//         const user = 
+
+//     }catch(error){
+//         response.status(500).json({message: "Error occured while verifying the email address"})
+//     }
+// }
 
 exports.LoginUser = async (request, response) => {
     const { email, password } = request.body;
