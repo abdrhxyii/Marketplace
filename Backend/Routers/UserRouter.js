@@ -5,5 +5,6 @@ const route = express.Router()
 route.post('/register', AuthController.RegisterUser)
 route.post('/login', AuthController.LoginUser)
 route.get('/profile/:id', AuthController.getUserProfile)
+route.get('/verify-email', AuthController.emailVerification)
 
 module.exports = route

@@ -27,43 +27,45 @@ exports.RegisterUser = async (request, response) => {
             const transporter = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: 'mmarahman4847@gmail.com',
-                    pass: 'Mmar4847xyii'
+                    user: process.env.GOOGLE_EMAIL_ADDRESS,
+                    pass: process.env.GOOGLE_EMAIL_APP_PASSWORD
                 }
             });
 
             const mailOptions = {
-                from: 'mmarahman4847@gmail.com',
+                from: process.env.GOOGLE_EMAIL_ADDRESS,
                 to: `${email}`,
                 subject: 'Email Verification',
                 html: `<h2>Thank you for registering on our site</h2>
                        <p>Please click on the following link to verify your email:</p>
-                       <a href="http://${request.headers.host}/verify-email?token=${verificationtoken}">Verify Email</a>`
+                       <a href="http://${request.headers.host}/auth/verify-email?token=${verificationtoken}">Verify Email</a>`
             };
 
-            await transporter.sendMail(mailOptions, (info, error) => {
-                if (error){
-                    console.log(error)
-                    response.status(400).json({message: "Error when sending the email address"})
-                } else {
-                    response.status(201).json({ message: "Registered successfully, Please check your mail to verify your email address", newUser});
-                }
-            });
+            await transporter.sendMail(mailOptions)
+            response.status(201).json({ message: "Registered successfully, Please check your mail to verify your email address", newUser});
         }
     } catch (error) {
         response.status(500).json({ message: "Error occurred while signing up", error: error.message });
     }
 };
 
-// exports.verifyemail = async (request, response) => {
-//     const {Token} = request.query;
-//     try{
-//         const user = 
+exports.emailVerification = async (request, response) => {
+    const token = request.query.token;
+    try{
+        const user = await AuthModal.findOne({where: {verificationToken: token}})
+        if (user.isEmailVerified === true){
+            return response.status(200).json({message: "Email address already verified successfully, please login to continue"})
+        } else {
+            user.isEmailVerified = true
+            await user.save()
+            return response.status(200).json({message: "Email address successfully Verified"})
+        }
+    }
+    catch (error){
+        response.status(500).json({ message: "Error occurred while verifying the email addresss", error: error.message });
+    }
 
-//     }catch(error){
-//         response.status(500).json({message: "Error occured while verifying the email address"})
-//     }
-// }
+}
 
 exports.LoginUser = async (request, response) => {
     const { email, password } = request.body;

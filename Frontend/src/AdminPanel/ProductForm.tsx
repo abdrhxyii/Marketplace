@@ -1,76 +1,115 @@
-import { useState } from 'react';
+import apiService from '../Services/apiService';
+import { useState, useEffect } from 'react';
+
 
 const ProductForm = () => {
-  const [formData, setFormData] = useState({
-    image: '',
+  const [category, setCategory] = useState([]);
+
+  const [categoryfield, setCategoryfield] = useState({
+    image: null,
     name: '',
     description: '',
     price: '',
-    category: '',
-  });
+    category: ''
+  })
+
+  const handleCatgory = () => {
+    apiService.get('category')
+    .then((data: any) => {
+      setCategory(data.data)
+      console.log(data.data, "data")
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  useEffect(() => {
+    handleCatgory()
+  }, [])
 
   const handleChange = (e: any) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const {name, value, files} = e.target
+    if (name === 'image'){
+      setCategoryfield({
+        ...categoryfield,
+        [name]: files[0] || null
+      })
+    } else {
+      setCategoryfield({
+        ...categoryfield,
+        [name]: value
+      })
+    }
+  }
 
-  const handleSubmit = (e: any) => {
+  const handleFormSubmission = (e: any) => {
     e.preventDefault();
-    // Handle form submission here
-  };
+    const formData = new FormData()
+    try{
+      if (categoryfield.image) {
+        formData.append('image', categoryfield.image);
+      }      
+      formData.append('name', categoryfield.name);
+      formData.append('description', categoryfield.description);
+      formData.append('price', categoryfield.price);
+      formData.append('categoryId', categoryfield.category);
+
+      apiService.imagePost('product', formData)
+      .then((data: any) => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+    }catch(error){
+
+    }
+  }
 
   return (
-    <div>
-      <h2>Create Product</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Product Image URL"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Product Name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <textarea
-            placeholder="Product Description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Product Price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <select name="category" onChange={handleChange} value={formData.category}>
-            <option value="">Select Category</option>
-            <option value="Category 1">Category 1</option>
-            <option value="Category 2">Category 2</option>
-            <option value="Category 3">Category 3</option>
-          </select>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+    <form className="space-y-4" onSubmit={handleFormSubmission}>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Image</label>
+        <input onChange={handleChange} type="file" name='image' className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+      
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Name</label>
+        <input onChange={handleChange} type="text" value={categoryfield.name} name='name' className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+      
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Description</label>
+        <textarea onChange={handleChange} name='description' value={categoryfield.description} className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+      
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Price</label>
+        <input onChange={handleChange} type="number" name='price' value={categoryfield.price} className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+      
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Category</label> 
+        <select onChange={handleChange} name='category' className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        {
+          category.map((cat: any) => (
+            <option key={cat.id} value={cat.id}>{cat.name}</option>
+          ))
+        }
+        <option value="create-category">Create Category</option>
+        </select>
+      </div>
+      
+      <div>
+        <button type="submit" className="w-full py-2 px-4 bg-black text-white font-medium rounded-md shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
   );
 };
 
