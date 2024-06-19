@@ -4562,3 +4562,63 @@
 {"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
 {"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
 {"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `image`, `name`, `description`, `price`, `categoryId`, `createdAt`, `updatedAt` FROM `Products` AS `Product`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `image`, `name`, `description`, `price`, `categoryId`, `createdAt`, `updatedAt` FROM `Products` AS `Product`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `email`, `password`, `first_name`, `last_name`, `isEmailVerified`, `verificationToken`, `role`, `createdAt`, `updatedAt` FROM `Users` AS `User` WHERE `User`.`email` = 'abdurrahmanx33@gmail.com';"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `email`, `password`, `first_name`, `last_name`, `isEmailVerified`, `verificationToken`, `role`, `createdAt`, `updatedAt` FROM `Users` AS `User` WHERE `User`.`email` = 'abdurrahmanx33@gmail.com';"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `image`, `name`, `description`, `price`, `categoryId`, `createdAt`, `updatedAt` FROM `Products` AS `Product`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `image`, `name`, `description`, `price`, `categoryId`, `createdAt`, `updatedAt` FROM `Products` AS `Product`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category` WHERE `Category`.`id` = '1';"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category` WHERE `Category`.`id` = '1';"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category` WHERE `Category`.`id` = '1';"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT 1+1 AS result"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Users' AND TABLE_SCHEMA = 'marketplace_db'"}
+{"label":"sequelize","level":"info","message":"Executing (default): SHOW INDEX FROM `Users`"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Categories' AND TABLE_SCHEMA = 'marketplace_db'"}
+{"label":"sequelize","level":"info","message":"Executing (default): SHOW INDEX FROM `Categories`"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Products' AND TABLE_SCHEMA = 'marketplace_db'"}
+{"label":"sequelize","level":"info","message":"Executing (default): SHOW INDEX FROM `Products`"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Blogs' AND TABLE_SCHEMA = 'marketplace_db'"}
+{"label":"sequelize","level":"info","message":"Executing (default): SHOW INDEX FROM `Blogs`"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Comments' AND TABLE_SCHEMA = 'marketplace_db'"}
+{"label":"sequelize","level":"info","message":"Executing (default): SHOW INDEX FROM `Comments`"}
+{"label":"server","level":"info","message":"Server running on port 4000"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category` WHERE `Category`.`id` = '1';"}
+{"label":"sequelize","level":"info","message":"Executing (default): INSERT INTO `Products` (`id`,`image`,`name`,`description`,`price`,`categoryId`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?,?);"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `image`, `name`, `description`, `price`, `categoryId`, `createdAt`, `updatedAt` FROM `Products` AS `Product`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `name`, `createdAt`, `updatedAt` FROM `Categories` AS `Category`;"}
+{"label":"sequelize","level":"info","message":"Executing (default): SELECT `id`, `image`, `name`, `description`, `price`, `categoryId`, `createdAt`, `updatedAt` FROM `Products` AS `Product`;"}

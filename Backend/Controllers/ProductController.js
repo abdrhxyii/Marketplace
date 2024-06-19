@@ -28,7 +28,6 @@ exports.createProduct = async (request, response) => {
             Key: fileKey,
             Body: imageFile.buffer,
             ContentType: imageFile.mimetype,
-            ACL: 'public-read'
         };
         // console.log(uploadparams, "uploadparams")
 

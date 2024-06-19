@@ -33,7 +33,7 @@ const Category = () => {
           <Product
           key={products.id}
           name={products.name}
-          image={`http://localhost:4000/images/${products.image}`}
+          image={products.image}
           price={products.price}
         />))}
       </div>
