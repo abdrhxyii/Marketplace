@@ -58,7 +58,7 @@ const Productdetails: React.FC = () => {
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/2">
           <div>
-            <img src={`http://localhost:4000/images/${productDetail.image}`}/>
+            <img src={productDetail.image}/>
           </div>
           {/* <Carousel
             showArrows={true}
@@ -89,7 +89,7 @@ const Productdetails: React.FC = () => {
             <Product
               key={recommendation.id}
               name={recommendation.name}
-              image={`http://localhost:4000/images/${recommendation.image}`}
+              image={recommendation.image}
               price={recommendation.price}
               onClick={() => handleRecommendedProductsRoute(recommendation.id)}
             />
