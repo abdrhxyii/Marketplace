@@ -49,6 +49,49 @@ exports.RegisterUser = async (request, response) => {
     }
 };
 
+exports.GoogleAuthentication = async (request, response) => {
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_REDIRECT_URI}&response_type=code&scope=email%20profile`;
+    response.redirect(googleAuthUrl)
+}
+
+exports.GoogleAuthenticationCallback = async (request, response) => {
+    const { code } = request.query;
+    try {
+        const { data } = await axios.post('https://oauth2.googleapis.com/token', {
+            code,
+            client_id: process.env.GOOGLE_CLIENT_ID,
+            client_secret: process.env.GOOGLE_CLIENT_SECRET,
+            redirect_uri: process.env.GOOGLE_REDIRECT_URI,
+            grant_type: 'authorization_code'
+        });
+
+        const { id_token } = data;
+        const googleUser = jwt.decode(id_token);
+
+        let user = await AuthModal.findOne({ where: { email: googleUser.email } });
+
+        if (!user) {
+            user = await AuthModal.create({
+                email: googleUser.email,
+                first_name: googleUser.given_name,
+                last_name: googleUser.family_name,
+                isEmailVerified: true,
+                role: 'user'
+            });
+        }
+
+        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET_KEY);
+
+        response.status(200).json({ message: "Login success", Token: token, id: user.id, role: user.role });
+    } catch (error) {
+        response.status(500).json({ message: "Error occurred while logging in with Google", error: error.message });
+    }
+}
+
+exports.FacebookAuthentication = async (request, response) => {
+    const facebookAuthUrl = `https://www.facebook.com/v11.0/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&redirect_uri=${process.env.FACEBOOK_REDIRECT_URI}&state={st=state123abc,ds=123456789}&scope=email,public_profile`;
+}
+
 exports.emailVerification = async (request, response) => {
     const token = request.query.token;
     try{

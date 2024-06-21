@@ -41,6 +41,16 @@ const User = SequlizeConfig.define("User", {
         type: Sequelize.ENUM('user', 'admin'),
         allowNull: false,
         defaultValue: 'user'
+    },
+    googleId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: true
+    },
+    facebookId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: true
     }
 })
 
