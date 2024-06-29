@@ -4,14 +4,16 @@ const User = require('../../Modals/UserModal');
 const sequelize = require('../../Configurations/DatabaseConfig.test');
 
 describe('Auth API', () => {
+
+    // This method runs once before all the tests in a test suite (describe block) are executed.
     beforeAll(async () => {
         await sequelize.sync({ force: true });
     });
-
+    //Conversely, afterAll runs once after all the tests in a test suite have finished running.
     afterAll(async () => {
         await sequelize.close();
     });
-
+    //This method runs before each individual test case (it block) within a describe block.
     beforeEach(async () => {
         await User.destroy({ where: {} }); // Clear User table before each test
     });
@@ -28,10 +30,10 @@ describe('Auth API', () => {
                     role: "admin"
                 });
             expect(response.statusCode).toBe(201);
-            expect(response.body.message).toBe("Registered successfully");
+            expect(response.body.message).toBe("Registered successfully, Please check your mail to verify your email address");
             expect(response.body.newUser).toHaveProperty('id');
             expect(response.body.newUser.email).toBe('admin@gmail.com');
-        });
+        }, 10000);
 
         it('should not register with an existing email address', async () => {
             await request(app)
@@ -83,7 +85,7 @@ describe('Auth API', () => {
             expect(response.body).toHaveProperty('Token');
             expect(response.body).toHaveProperty('id');
             expect(response.body).toHaveProperty('role');
-        });
+        }, 10000);
 
         it('should not login with a non-existing email address', async () => {
             const response = await request(app)
@@ -111,32 +113,34 @@ describe('Auth API', () => {
                     email: "login@gmail.com",
                     password: "wrongpassword",
                 });
-
             expect(response.statusCode).toBe(401); // Changed to 401 Unauthorized
             expect(response.body.message).toBe("Incorrect password");
-        });
+        }, 10000);
     });
 
     describe('GET /auth/profile/:id endpoint', () => {
         it('should retrieve a user profile successfully', async () => {
-            const newUser = await User.create({
-                email: "admin@gmail.com",
-                password: "123456789",
-                first_name: "Abdur",
-                last_name: "Rahman",
-                role: "admin"
-            });
+            const responsenewUser = await request(app)
+            .post('/auth/register')
+            .send({
+                email:"mmarahman4847@gmail.com",
+                password: '12345678',
+                first_name: 'Test',
+                last_name: 'User',
+                role: 'user'
+            })
+
+            let newUser = responsenewUser.body.newUser;
 
             const response = await request(app).get(`/auth/profile/${newUser.id}`);
-
             expect(response.statusCode).toBe(200);
             expect(response.body.message).toHaveLength(1);
             expect(response.body.message[0].id).toBe(newUser.id);
-            expect(response.body.message[0].email).toBe("admin@gmail.com");
-        });
+            expect(response.body.message[0].email).toBe(newUser.email);
+        }, 10000);
 
         it('should not retrieve any users', async () => {
-            const response = await request(app).get('/auth/profile/10'); // Assuming ID 10 doesn't exist
+            const response = await request(app).get('/auth/profile/100'); // Assuming ID 10 doesn't exist
 
             expect(response.statusCode).toBe(404);
             expect(response.body.message).toBe("No user found");

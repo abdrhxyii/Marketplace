@@ -42,7 +42,7 @@ exports.createProduct = async (request, response) => {
             categoryId: category.id
         });
 
-        return response.status(200).json({ message: "Product created", product });
+        return response.status(201).json({ message: "Product created", product });
 
     } catch (error) {
         console.error("Error occurred:", error);
