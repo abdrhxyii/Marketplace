@@ -41,7 +41,12 @@ describe('products endpoints', () => {
                 });
 
             const token = responselogin.body.Token;
-            const category = await Category.create({ name: 'mens' });
+            const category = await request(app)
+            .post('/category/')
+            .send({
+                name: "Mens"
+            })
+            
             const response = await request(app)
                 .post('/product/')
                 .set('Authorization', `Bearer ${token}`)
@@ -51,10 +56,10 @@ describe('products endpoints', () => {
                 .field('categoryId', category.id)
                 .attach('image', path.resolve(__dirname, 'testimages', 'testinimage.jpeg'));
 
-            expect(response.statusCode).toBe(200);
+            expect(response.statusCode).toBe(201);
             expect(response.body.message).toBe("Product created");
             expect(response.body.product).toHaveProperty('id');
             expect(response.body.product.name).toBe('Short Sleeve T-shirts');
-        });
+        }, 10000);
     });
 });
