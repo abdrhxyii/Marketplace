@@ -23,7 +23,7 @@ describe('Auth API', () => {
             const response = await request(app)
                 .post('/auth/register')
                 .send({
-                    email: "admin@gmail.com",
+                    email: "abdurrahmanx33@gmail.com",
                     password: "123456789",
                     first_name: "Abdur",
                     last_name: "Rahman",
@@ -32,14 +32,14 @@ describe('Auth API', () => {
             expect(response.statusCode).toBe(201);
             expect(response.body.message).toBe("Registered successfully, Please check your mail to verify your email address");
             expect(response.body.newUser).toHaveProperty('id');
-            expect(response.body.newUser.email).toBe('admin@gmail.com');
+            expect(response.body.newUser.email).toBe('abdurrahmanx33@gmail.com');
         }, 10000);
 
         it('should not register with an existing email address', async () => {
             await request(app)
                 .post('/auth/register')
                 .send({
-                    email: "admin@gmail.com",
+                    email: "abdurrahmanx33@gmail.com",
                     password: "123456789",
                     first_name: "Abdur",
                     last_name: "Rahman",
@@ -49,7 +49,7 @@ describe('Auth API', () => {
             const response = await request(app)
                 .post('/auth/register')
                 .send({
-                    email: "admin@gmail.com",
+                    email: "abdurrahmanx33@gmail.com",
                     password: "123456789",
                     first_name: "Abdur",
                     last_name: "Rahman",
