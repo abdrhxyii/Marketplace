@@ -27,6 +27,10 @@ app.use('/product', ProductRouter)
 app.use('/comment', CommentRouter) // http://localhost:4000/comments/blogId
 app.use('/category', CategoryRouter)
 
+app.get('/', (req, res) => {
+    res.send("Server is running")
+})
+
 // Database synchronization
 sequelizeConfigs.sync({
         alter: false,
