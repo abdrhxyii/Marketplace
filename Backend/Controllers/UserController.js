@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 
 exports.RegisterUser = async (request, response) => {
     const { email, password, first_name, last_name, role } = request.body;
+
     try {
         const existingUser = await AuthModal.findOne({ where: { email: email } });
 
@@ -143,7 +144,7 @@ exports.LoginUser = async (request, response) => {
 exports.getUserProfile = async (request, response) => {
     const id = request.params.id
     try{
-        const UserDetail = await AuthModal.findAll({where: {id: id}});
+        const UserDetail = await AuthModal.findOne({where: {id: id}});
         if (UserDetail.length > 0){
             response.status(200).json({message: UserDetail})
         } else {

@@ -21,7 +21,7 @@ const upload = multer({ storage: storage })
 
 route.post('/', upload.single('image'), AuthMiddleware.verifyToken, AuthMiddleware.AdminMiddleware, BlogController.createBlog);
 route.get('/', BlogController.getAllBlogs);
-route.get('/:id', BlogController.getBlog)
-route.delete( '/:id',  AuthMiddleware.verifyToken, AuthMiddleware.AdminMiddleware, BlogController.deleteBlogs)
+route.get('/:id', BlogController.getBlog);
+route.delete( '/:id',  AuthMiddleware.verifyToken, AuthMiddleware.AdminMiddleware, BlogController.deleteBlogs);
 
 module.exports = route
